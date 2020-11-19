@@ -8,7 +8,7 @@ namespace FlatmateDB.Models
     {
         [Key]
         public int Id { get; set; }
-        public int ListType { get; set; }
+        public int ListLabel { get; set; }
         public int ActivityId { get; set; }
         public List<Item> Items { get; set; }
 

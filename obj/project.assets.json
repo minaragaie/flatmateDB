@@ -5765,14 +5765,14 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Volumes/Workspace/workspace/FlatmateDB/flatmateBackend 2/FlatmateDB/FlatmateDB.csproj",
+      "projectUniqueName": "/Volumes/Workspace/workspace/FlatmateDB/FlatmateDB/FlatmateDB.csproj",
       "projectName": "FlatmateDB",
-      "projectPath": "/Volumes/Workspace/workspace/FlatmateDB/flatmateBackend 2/FlatmateDB/FlatmateDB.csproj",
+      "projectPath": "/Volumes/Workspace/workspace/FlatmateDB/FlatmateDB/FlatmateDB.csproj",
       "packagesPath": "/Users/minaragaie/.nuget/packages/",
-      "outputPath": "/Volumes/Workspace/workspace/FlatmateDB/flatmateBackend 2/FlatmateDB/obj/",
+      "outputPath": "/Volumes/Workspace/workspace/FlatmateDB/FlatmateDB/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/minaragaie/.nuget/NuGet/NuGet.Config"
+        "/Users/minaragaie/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

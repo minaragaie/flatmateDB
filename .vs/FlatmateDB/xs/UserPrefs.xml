@@ -1,20 +1,20 @@
 ﻿<Properties StartupConfiguration="{B1CFBE65-51DE-4327-84C6-A299AAACF84D}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/UserHouse.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/ListItem.cs">
     <Files>
       <File FileName="Models/Activity.cs" Line="1" Column="1" />
-      <File FileName="Program.cs" Line="1" Column="1" />
-      <File FileName="Models/FlatmateDBContext.cs" Line="21" Column="58" />
-      <File FileName="Models/ActivityType.cs" Line="7" Column="6" />
-      <File FileName="Models/Comment.cs" Line="1" Column="1" />
-      <File FileName="Models/House.cs" Line="1" Column="1" />
-      <File FileName="Models/Item.cs" Line="1" Column="1" />
-      <File FileName="Models/ItemType.cs" Line="1" Column="1" />
+      <File FileName="Program.cs" />
+      <File FileName="Models/FlatmateDBContext.cs" />
+      <File FileName="Models/ActivityType.cs" />
+      <File FileName="Models/Comment.cs" />
+      <File FileName="Models/House.cs" />
+      <File FileName="Models/Item.cs" />
+      <File FileName="Models/ItemType.cs" />
       <File FileName="Models/List.cs" Line="3" Column="28" />
       <File FileName="Models/ListItem.cs" Line="6" Column="5" />
-      <File FileName="Models/Post.cs" Line="1" Column="1" />
-      <File FileName="Models/Task.cs" Line="1" Column="1" />
-      <File FileName="Models/TaskType.cs" Line="1" Column="1" />
-      <File FileName="Models/User.cs" Line="1" Column="1" />
+      <File FileName="Models/Post.cs" />
+      <File FileName="Models/Task.cs" />
+      <File FileName="Models/TaskType.cs" />
+      <File FileName="Models/User.cs" />
       <File FileName="Models/UserHouse.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -22,8 +22,9 @@
         <State name="__root__">
           <Node name="FlatmateDB" expanded="True">
             <Node name="FlatmateDB" expanded="True">
-              <Node name="Models" expanded="True" />
-              <Node name="Program.cs" selected="True" />
+              <Node name="Models" expanded="True">
+                <Node name="ListItem.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>

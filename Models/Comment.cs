@@ -9,6 +9,7 @@ namespace FlatmateDB.Models
         public int Id { get; set; }
         public string Label { get; set; }
         public int ActivityId { get; set; }
+        public int PostId { get; set; }
         public Activity Activity { get; set; }
 
     }
