@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlatmateDB.Models
 {
@@ -27,6 +28,8 @@ namespace FlatmateDB.Models
 	public class TaskType
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int TaskTypeId { get; set; }
         public int TaskTypeLabel { get; set; }
     }
