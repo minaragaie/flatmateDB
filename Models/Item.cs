@@ -17,5 +17,8 @@ namespace FlatmateDB.Models
         public int ItemTypeId { get; set; }
 
         public bool HasBeenPurchased { get; set; }
+        public int Price { get; set; }
+        public int StoreId { get; set; }
+
     }
 }
