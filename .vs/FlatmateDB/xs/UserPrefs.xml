@@ -7,23 +7,26 @@
       <File FileName="Models/ActivityType.cs" />
       <File FileName="Models/Comment.cs" />
       <File FileName="Models/House.cs" />
-      <File FileName="Models/Item.cs" Line="25" Column="1" />
+      <File FileName="Models/Item.cs" Line="20" Column="18" />
       <File FileName="Models/ItemType.cs" />
-      <File FileName="Models/List.cs" />
-      <File FileName="Models/ListItem.cs" />
+      <File FileName="Models/List.cs" Line="1" Column="1" />
+      <File FileName="Models/ListItem.cs" Line="19" Column="42" />
       <File FileName="Models/Post.cs" />
       <File FileName="Models/Task.cs" />
       <File FileName="Models/TaskType.cs" />
       <File FileName="Models/User.cs" />
       <File FileName="Models/UserHouse.cs" />
-      <File FileName="Models/Store.cs" />
+      <File FileName="Models/Store.cs" Line="1" Column="1" />
+      <File FileName="Models/StoreItem.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="FlatmateDB" expanded="True">
-            <Node name="FlatmateDB" expanded="True" selected="True">
-              <Node name="Models" expanded="True" />
+            <Node name="FlatmateDB" expanded="True">
+              <Node name="Models" expanded="True">
+                <Node name="Item.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>

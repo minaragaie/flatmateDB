@@ -16,5 +16,6 @@ namespace FlatmateDB.Models
         public Item Item { get; set; }
         public int ListId { get; set; }
         public List List { get; set; }
+        public int Quanitiy { get; set; }
     }
 }

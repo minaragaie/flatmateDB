@@ -15,6 +15,7 @@ namespace FlatmateDB.Models
         public Store Store { get; set; }
         public int ItemId { get; set; }
         public Item Item { get; set; }
+        public int Price { get; set; }
         public List<Item> Items { get; set; }
         public List<Store> Stores { get; set; }
 
