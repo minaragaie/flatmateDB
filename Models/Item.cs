@@ -15,8 +15,8 @@ namespace FlatmateDB.Models
         public string? Details { get; set; }
         [Required]
         public int ItemTypeId { get; set; }
-
         public bool HasBeenPurchased { get; set; }
+        public string? PhotoURL { get; set; }
         public int Price { get; set; }
         public int StoreId { get; set; }
 
