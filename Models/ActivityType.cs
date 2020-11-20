@@ -19,7 +19,7 @@ namespace FlatmateDB.Models
     public class ActivityType
     {
         [Key]
-        public int ActivityTypeId { get; set; }
-        public string ActivityTypeLabel { get; set; }
+        public int Id { get; set; }
+        public string Label { get; set; }
     }
 }

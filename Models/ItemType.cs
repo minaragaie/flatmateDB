@@ -9,7 +9,7 @@ namespace FlatmateDB.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-        public int ItemTypeId { get; set; }
-        public string ItemTypeLabel { get; set; }
+        public int Id { get; set; }
+        public string Label { get; set; }
     }
 }

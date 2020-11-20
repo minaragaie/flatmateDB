@@ -30,7 +30,7 @@ namespace FlatmateDB.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-        public int TaskTypeId { get; set; }
-        public int TaskTypeLabel { get; set; }
+        public int Id { get; set; }
+        public int Label { get; set; }
     }
 }

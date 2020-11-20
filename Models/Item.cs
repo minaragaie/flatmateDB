@@ -9,15 +9,6 @@ namespace FlatmateDB.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-       
         public string Label { get; set; }
-#nullable enable
-        public string? Details { get; set; }
-        [Required]
-        public int ItemTypeId { get; set; }
-        public bool HasBeenPurchased { get; set; }
-        public string? PhotoURL { get; set; }
-        public int StoreId { get; set; }
-
     }
 }

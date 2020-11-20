@@ -9,5 +9,6 @@ namespace FlatmateDB.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Label { get; set; }
+        public string Location { get; set; }
     }
 }

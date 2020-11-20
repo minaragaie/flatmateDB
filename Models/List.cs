@@ -11,7 +11,7 @@ namespace FlatmateDB.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int Id { get; set; }
-        public int ListLabel { get; set; }
+        public int Label { get; set; }
         public int ActivityId { get; set; }
         public List<Item> Items { get; set; }
 
