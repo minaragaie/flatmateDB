@@ -54,3 +54,8 @@ namespace FlatmateAPI
         }
     }
 }
+
+
+
+//just to remeber myself I'm following this tutorial 
+//https://www.syncfusion.com/blogs/post/how-to-build-crud-rest-apis-with-asp-net-core-3-1-and-entity-framework-core-create-jwt-tokens-and-secure-apis.aspx#create-database-and-connect-it-to-application

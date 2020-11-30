@@ -5,19 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlatmateAPI.Models
 {
+    [Table("StoreItem")]
     public class StoreItem
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [ForeignKey("Store")]
         public int StoreId { get; set; }
         public Store Store { get; set; }
+        [ForeignKey("Item")]
         public int ItemId { get; set; }
         public Item Item { get; set; }
-        public int Price { get; set; }
-        public List<Item> Items { get; set; }
-        public List<Store> Stores { get; set; }
+        public decimal? Price { get; set; }
 
     }
 }

@@ -1,26 +1,29 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlatmateAPI.Models
 {
-    public enum ActivityTypeId : int
+    public enum ActivityLabel
     {
-        WriteComment = 0,
-        EditComment = 1,
-        CreateList = 2,
-        EditList = 3,
-        WritePost = 4,
-        EditPost = 5,
-        CreateTask = 6,
-        EditTask = 7,
-        MarkAsDone = 8,
-        InvteFriend = 9
+        WriteComment,
+        EditComment,
+        CreateList,
+        EditList,
+        AddItem,
+        WritePost,
+        EditPost,
+        CreateTask,
+        EditTask,
+        MarkAsDone,
+        InviteFriend
     }
+    [Table("ActivityType")]
     public class ActivityType
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public string Label { get; set; }
+        [Required, MaxLength(40)]
+        public ActivityLabel Label { get; set; }
     }
 }

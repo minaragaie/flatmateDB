@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlatmateAPI.Models
 {
+    [Table("User")]
     public class User
     {
         [Key]
@@ -17,5 +20,8 @@ namespace FlatmateAPI.Models
         public bool IsAnonymous { get; set; }
         public DateTime LastLoginAt { get; set; }
         public string PhotoURL { get; set; }
+        public List<UserHouse> Houses { get; set; }
+        public List<Activity> Activities { get; set; }
+
     }
 }

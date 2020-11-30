@@ -1,14 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlatmateAPI.Models
 {
+    [Table("Store")]
     public class Store
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required, MaxLength(40)]
         public string Label { get; set; }
+        [Required, MaxLength(200)]
         public string Location { get; set; }
+        public List<StoreItem> Items { get; set; }
+
     }
 }
