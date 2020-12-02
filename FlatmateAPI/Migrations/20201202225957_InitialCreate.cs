@@ -21,6 +21,19 @@ namespace FlatmateAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DutyType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Label = table.Column<int>(type: "int", maxLength: 40, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DutyType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "House",
                 columns: table => new
                 {
@@ -76,19 +89,6 @@ namespace FlatmateAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<int>(type: "int", maxLength: 40, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TaskType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -107,6 +107,29 @@ namespace FlatmateAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Activity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    HouseId = table.Column<int>(type: "int", nullable: false),
+                    ActivityType = table.Column<int>(type: "int", nullable: false),
+                    Privilege = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Activity_House_HouseId",
+                        column: x => x.HouseId,
+                        principalTable: "House",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,28 +160,27 @@ namespace FlatmateAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Activity",
+                name: "UserHouse",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     HouseId = table.Column<int>(type: "int", nullable: false),
-                    ActivityType = table.Column<int>(type: "int", nullable: false),
-                    Privilege = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Accepted = table.Column<bool>(type: "bit", nullable: false),
+                    ActivityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Activity", x => x.Id);
+                    table.PrimaryKey("PK_UserHouse", x => new { x.UserId, x.HouseId });
                     table.ForeignKey(
-                        name: "FK_Activity_House_HouseId",
+                        name: "FK_UserHouse_House_HouseId",
                         column: x => x.HouseId,
                         principalTable: "House",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Activity_User_UserId",
+                        name: "FK_UserHouse_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -187,7 +209,33 @@ namespace FlatmateAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "List",
+                name: "Duty",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DutyTypeId = table.Column<int>(type: "int", nullable: false),
+                    AssignedTo = table.Column<int>(type: "int", nullable: false),
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OnProcess = table.Column<bool>(type: "bit", nullable: false),
+                    Repeat = table.Column<bool>(type: "bit", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Duty", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Duty_Activity_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GroceryList",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -197,9 +245,9 @@ namespace FlatmateAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_List", x => x.Id);
+                    table.PrimaryKey("PK_GroceryList", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_List_Activity_ActivityId",
+                        name: "FK_GroceryList_Activity_ActivityId",
                         column: x => x.ActivityId,
                         principalTable: "Activity",
                         principalColumn: "Id",
@@ -227,72 +275,6 @@ namespace FlatmateAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Task",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    TaskTypeId = table.Column<int>(type: "int", nullable: false),
-                    User = table.Column<int>(type: "int", nullable: true),
-                    ActivityId = table.Column<int>(type: "int", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OnProcess = table.Column<bool>(type: "bit", nullable: false),
-                    Repeat = table.Column<bool>(type: "bit", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Task", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Task_Activity_ActivityId",
-                        column: x => x.ActivityId,
-                        principalTable: "Activity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Task_User_User",
-                        column: x => x.User,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserHouse",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    HouseId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Accepted = table.Column<bool>(type: "bit", nullable: false),
-                    ActivityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserHouse", x => new { x.UserId, x.HouseId });
-                    table.ForeignKey(
-                        name: "FK_UserHouse_Activity_ActivityId",
-                        column: x => x.ActivityId,
-                        principalTable: "Activity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserHouse_House_HouseId",
-                        column: x => x.HouseId,
-                        principalTable: "House",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserHouse_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ListItem",
                 columns: table => new
                 {
@@ -306,7 +288,8 @@ namespace FlatmateAPI.Migrations
                     HasBeenPurchased = table.Column<bool>(type: "bit", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StoreId = table.Column<int>(type: "int", nullable: true)
+                    StoreId = table.Column<int>(type: "int", nullable: true),
+                    GroceryListId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -318,15 +301,15 @@ namespace FlatmateAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_ListItem_GroceryList_GroceryListId",
+                        column: x => x.GroceryListId,
+                        principalTable: "GroceryList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_ListItem_Item_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Item",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ListItem_List_ListId",
-                        column: x => x.ListId,
-                        principalTable: "List",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -337,18 +320,18 @@ namespace FlatmateAPI.Migrations
                 column: "HouseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activity_UserId",
-                table: "Activity",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comment_ActivityId",
                 table: "Comment",
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_List_ActivityId",
-                table: "List",
+                name: "IX_Duty_ActivityId",
+                table: "Duty",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroceryList_ActivityId",
+                table: "GroceryList",
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
@@ -357,9 +340,9 @@ namespace FlatmateAPI.Migrations
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ListItem_ListId",
+                name: "IX_ListItem_GroceryListId",
                 table: "ListItem",
-                column: "ListId");
+                column: "GroceryListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_ActivityId",
@@ -370,21 +353,6 @@ namespace FlatmateAPI.Migrations
                 name: "IX_StoreItem_StoreId",
                 table: "StoreItem",
                 column: "StoreId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Task_ActivityId",
-                table: "Task",
-                column: "ActivityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Task_User",
-                table: "Task",
-                column: "User");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserHouse_ActivityId",
-                table: "UserHouse",
-                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserHouse_HouseId",
@@ -401,6 +369,12 @@ namespace FlatmateAPI.Migrations
                 name: "Comment");
 
             migrationBuilder.DropTable(
+                name: "Duty");
+
+            migrationBuilder.DropTable(
+                name: "DutyType");
+
+            migrationBuilder.DropTable(
                 name: "ItemType");
 
             migrationBuilder.DropTable(
@@ -413,16 +387,10 @@ namespace FlatmateAPI.Migrations
                 name: "StoreItem");
 
             migrationBuilder.DropTable(
-                name: "Task");
-
-            migrationBuilder.DropTable(
-                name: "TaskType");
-
-            migrationBuilder.DropTable(
                 name: "UserHouse");
 
             migrationBuilder.DropTable(
-                name: "List");
+                name: "GroceryList");
 
             migrationBuilder.DropTable(
                 name: "Item");
@@ -431,13 +399,13 @@ namespace FlatmateAPI.Migrations
                 name: "Store");
 
             migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
                 name: "Activity");
 
             migrationBuilder.DropTable(
                 name: "House");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }

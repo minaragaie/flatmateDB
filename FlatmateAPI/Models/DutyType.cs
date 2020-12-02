@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlatmateAPI.Models
 {
-    public enum TaskTypeLabel : int
+    public enum DutyTypeLabel : int
 	{
         Bedroom,
         Behavior,
@@ -25,12 +25,12 @@ namespace FlatmateAPI.Models
         Routine,
         Other,
     }
-    [Table("TaskType")]
-    public class TaskType
+    [Table("DutyType")]
+    public class DutyType
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [MaxLength(40)]
-        public TaskTypeLabel Label { get; set; }
+        public DutyTypeLabel Label { get; set; }
     }
 }

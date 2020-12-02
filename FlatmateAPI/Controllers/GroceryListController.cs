@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class GroceryListController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public UserController(FlatmateDBContext context)
+        public GroceryListController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/GroceryList
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<GroceryList>>> GetLists()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.Lists.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/GroceryList/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<GroceryList>> GetGroceryList(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var groceryList = await _context.Lists.FindAsync(id);
 
-            if (user == null)
+            if (groceryList == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return groceryList;
         }
 
-        // PUT: api/User/5
+        // PUT: api/GroceryList/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutGroceryList(int id, GroceryList groceryList)
         {
-            if (id != user.Id)
+            if (id != groceryList.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(groceryList).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!GroceryListExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/GroceryList
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<GroceryList>> PostGroceryList(GroceryList groceryList)
         {
-            _context.Users.Add(user);
+            _context.Lists.Add(groceryList);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetGroceryList", new { id = groceryList.Id }, groceryList);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/GroceryList/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteGroceryList(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var groceryList = await _context.Lists.FindAsync(id);
+            if (groceryList == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Lists.Remove(groceryList);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool GroceryListExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Lists.Any(e => e.Id == id);
         }
     }
 }

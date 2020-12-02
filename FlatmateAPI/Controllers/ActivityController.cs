@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class ActivityController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public UserController(FlatmateDBContext context)
+        public ActivityController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Activity
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Activity>>> GetActivities()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.Activities.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Activity/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Activity>> GetActivity(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var activity = await _context.Activities.FindAsync(id);
 
-            if (user == null)
+            if (activity == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return activity;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Activity/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutActivity(int id, Activity activity)
         {
-            if (id != user.Id)
+            if (id != activity.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(activity).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!ActivityExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Activity
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Activity>> PostActivity(Activity activity)
         {
-            _context.Users.Add(user);
+            _context.Activities.Add(activity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetActivity", new { id = activity.Id }, activity);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Activity/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteActivity(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var activity = await _context.Activities.FindAsync(id);
+            if (activity == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Activities.Remove(activity);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool ActivityExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Activities.Any(e => e.Id == id);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace FlatmateAPI.Models
         public string Location { get; set; }
         [MaxLength(40), Required]
         public string Name { get; set; }
-        public List<UserHouse> Users { get; set; }
+        //public List<UserHouse> Users { get; set; }
         public List<Activity> Activities { get; set; }
     }
 }

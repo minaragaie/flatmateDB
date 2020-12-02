@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlatmateAPI.Models
 {
-    [Table("List")]
-    public class List
+    [Table("GroceryList")]
+    public class GroceryList
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
@@ -15,7 +15,7 @@ namespace FlatmateAPI.Models
         public int Label { get; set; }
         [ForeignKey("Activity")]
         public int ActivityId { get; set; }
-        public Activity Activity { get; set; }
+        //public Activity Activity { get; set; }
         public List<ListItem> Items { get; set; }
 
     }

@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class CommentController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public UserController(FlatmateDBContext context)
+        public CommentController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Comment
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.Comments.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Comment/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Comment>> GetComment(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var comment = await _context.Comments.FindAsync(id);
 
-            if (user == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return comment;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Comment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutComment(int id, Comment comment)
         {
-            if (id != user.Id)
+            if (id != comment.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(comment).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!CommentExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Comment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-            _context.Users.Add(user);
+            _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Comment/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var comment = await _context.Comments.FindAsync(id);
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool CommentExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }

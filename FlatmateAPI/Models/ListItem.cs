@@ -16,7 +16,7 @@ namespace FlatmateAPI.Models
         public Item Item { get; set; }
         [ForeignKey("List")]
         public int? ListId { get; set; }
-        public List List { get; set; }
+        //public List List { get; set; }
         public int Quanitiy { get; set; }
         [ForeignKey("Activity")]
         public int? ActivityId { get; set; }

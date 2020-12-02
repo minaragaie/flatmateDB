@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class DutyController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public UserController(FlatmateDBContext context)
+        public DutyController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Duty
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Duty>>> GetDuties()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.Duties.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Duty/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Duty>> GetDuty(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var duty = await _context.Duties.FindAsync(id);
 
-            if (user == null)
+            if (duty == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return duty;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Duty/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutDuty(int id, Duty duty)
         {
-            if (id != user.Id)
+            if (id != duty.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(duty).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!DutyExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Duty
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Duty>> PostDuty(Duty duty)
         {
-            _context.Users.Add(user);
+            _context.Duties.Add(duty);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetDuty", new { id = duty.Id }, duty);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Duty/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteDuty(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var duty = await _context.Duties.FindAsync(id);
+            if (duty == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Duties.Remove(duty);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool DutyExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Duties.Any(e => e.Id == id);
         }
     }
 }

@@ -16,7 +16,8 @@ namespace FlatmateAPI.Models
         CreateTask,
         EditTask,
         MarkAsDone,
-        InviteFriend
+        InviteFriend,
+        CreateHouse
     }
     [Table("ActivityType")]
     public class ActivityType

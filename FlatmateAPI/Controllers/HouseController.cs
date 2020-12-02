@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class HouseController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public UserController(FlatmateDBContext context)
+        public HouseController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/House
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<House>>> GetHouses()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.Houses.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/House/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<House>> GetHouse(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var house = await _context.Houses.FindAsync(id);
 
-            if (user == null)
+            if (house == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return house;
         }
 
-        // PUT: api/User/5
+        // PUT: api/House/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutHouse(int id, House house)
         {
-            if (id != user.Id)
+            if (id != house.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(house).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!HouseExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/House
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<House>> PostHouse(House house)
         {
-            _context.Users.Add(user);
+            _context.Houses.Add(house);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetHouse", new { id = house.Id }, house);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/House/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteHouse(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var house = await _context.Houses.FindAsync(id);
+            if (house == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Houses.Remove(house);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool HouseExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Houses.Any(e => e.Id == id);
         }
     }
 }

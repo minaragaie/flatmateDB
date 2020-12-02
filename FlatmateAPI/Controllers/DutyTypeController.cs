@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class DutyTypeController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public UserController(FlatmateDBContext context)
+        public DutyTypeController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/DutyType
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<DutyType>>> GetDutyTypes()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.DutyTypes.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/DutyType/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<DutyType>> GetDutyType(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var dutyType = await _context.DutyTypes.FindAsync(id);
 
-            if (user == null)
+            if (dutyType == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return dutyType;
         }
 
-        // PUT: api/User/5
+        // PUT: api/DutyType/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutDutyType(int id, DutyType dutyType)
         {
-            if (id != user.Id)
+            if (id != dutyType.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(dutyType).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!DutyTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/DutyType
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<DutyType>> PostDutyType(DutyType dutyType)
         {
-            _context.Users.Add(user);
+            _context.DutyTypes.Add(dutyType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetDutyType", new { id = dutyType.Id }, dutyType);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/DutyType/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteDutyType(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var dutyType = await _context.DutyTypes.FindAsync(id);
+            if (dutyType == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.DutyTypes.Remove(dutyType);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool DutyTypeExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.DutyTypes.Any(e => e.Id == id);
         }
     }
 }

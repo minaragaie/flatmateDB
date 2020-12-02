@@ -19,7 +19,10 @@ namespace FlatmateAPI.Models
         public int Privilege { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedAt { get; set; }
-        public User User { get; set; }
+        //public User User { get; set; }
+        public List<GroceryList> Lists { get; set; }
+        public List<Duty> Duties { get; set; }
+
         public List<Comment> Comments { get; set; }
     }
 }

@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class StoreController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public UserController(FlatmateDBContext context)
+        public StoreController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Store
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Store>>> GetStores()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.Stores.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Store/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Store>> GetStore(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var store = await _context.Stores.FindAsync(id);
 
-            if (user == null)
+            if (store == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return store;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Store/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutStore(int id, Store store)
         {
-            if (id != user.Id)
+            if (id != store.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(store).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!StoreExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Store
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Store>> PostStore(Store store)
         {
-            _context.Users.Add(user);
+            _context.Stores.Add(store);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetStore", new { id = store.Id }, store);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Store/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteStore(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var store = await _context.Stores.FindAsync(id);
+            if (store == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Stores.Remove(store);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool StoreExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Stores.Any(e => e.Id == id);
         }
     }
 }
