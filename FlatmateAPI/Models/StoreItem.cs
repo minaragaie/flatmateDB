@@ -16,6 +16,7 @@ namespace FlatmateAPI.Models
         [ForeignKey("Item")]
         public int ItemId { get; set; }
         public Item Item { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
         public decimal? Price { get; set; }
 
     }

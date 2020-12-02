@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
 namespace FlatmateAPI.Models
 {
     public class FlatmateDBContext : DbContext
@@ -13,11 +12,10 @@ namespace FlatmateAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<ListItem>().HasKey(o => new { o.ItemId, o.ListId });
             modelBuilder.Entity<StoreItem>().HasKey(o => new { o.ItemId, o.StoreId });
             modelBuilder.Entity<UserHouse>().HasKey(o => new { o.UserId, o.HouseId });
-
-
         }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityType> ActivityTypes { get; set; }

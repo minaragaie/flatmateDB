@@ -8,22 +8,21 @@ namespace FlatmateAPI.Models
     [Table("ListItem")]
     public class ListItem
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int Id { get; set; }
         [ForeignKey("Item")]
-        public int ItemId { get; set; }
+        public int? ItemId { get; set; }
         public Item Item { get; set; }
         [ForeignKey("List")]
-        public int ListId { get; set; }
+        public int? ListId { get; set; }
         public List List { get; set; }
         public int Quanitiy { get; set; }
         [ForeignKey("Activity")]
-        public int ActivityId { get; set; }
+        public int? ActivityId { get; set; }
         public Activity Activity { get; set; }
         [ForeignKey("ItemType"), Required]
-        public int ItemTypeId { get; set; }
+        public int? ItemTypeId { get; set; }
         [Required]
         public bool HasBeenPurchased { get; set; }
 #nullable enable

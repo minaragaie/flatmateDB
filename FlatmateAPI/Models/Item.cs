@@ -8,8 +8,7 @@ namespace FlatmateAPI.Models
     [Table("Item")]
     public class Item
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [MaxLength(40), Required]
         public string Label { get; set; }

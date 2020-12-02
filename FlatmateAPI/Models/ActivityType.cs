@@ -21,7 +21,7 @@ namespace FlatmateAPI.Models
     [Table("ActivityType")]
     public class ActivityType
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, MaxLength(40)]
         public ActivityLabel Label { get; set; }

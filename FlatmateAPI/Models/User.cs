@@ -9,7 +9,9 @@ namespace FlatmateAPI.Models
     public class User
     {
         [Key]
-        public int ApiKey { get; set; }
+        public int Id { get; set; }
+        public string ApiKey { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedAt { get; set; }
         [Required, MaxLength(60)]
         public string DisplayName { get; set; }

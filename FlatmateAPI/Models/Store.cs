@@ -7,8 +7,7 @@ namespace FlatmateAPI.Models
     [Table("Store")]
     public class Store
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, MaxLength(40)]
         public string Label { get; set; }

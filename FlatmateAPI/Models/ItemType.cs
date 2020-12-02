@@ -30,8 +30,7 @@ namespace FlatmateAPI.Models
     [Table("ItemType")]
     public class ItemType
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, MaxLength(40)]
         public ItemTypeLabel Label { get; set; }

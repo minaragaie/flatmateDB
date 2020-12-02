@@ -8,8 +8,7 @@ namespace FlatmateAPI.Models
     [Table("List")]
     public class List
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int Id { get; set; }
         [Required, MaxLength(40)]

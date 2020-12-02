@@ -8,8 +8,7 @@ namespace FlatmateAPI.Models
     [Table("House")]
     public class House
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [ForeignKey("User")]
         public int OwnerId { get; set; }

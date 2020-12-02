@@ -8,8 +8,7 @@ namespace FlatmateAPI.Models
     [Table("Activity")]
     public class Activity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
@@ -18,6 +17,7 @@ namespace FlatmateAPI.Models
         [ForeignKey("ActivityType")]
         public int ActivityType { get; set; }
         public int Privilege { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedAt { get; set; }
         public User User { get; set; }
         public List<Comment> Comments { get; set; }
