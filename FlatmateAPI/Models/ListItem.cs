@@ -16,20 +16,21 @@ namespace FlatmateAPI.Models
         public Item Item { get; set; }
         [ForeignKey("List")]
         public int? ListId { get; set; }
-        //public List List { get; set; }
         public int Quanitiy { get; set; }
-        [ForeignKey("Activity")]
-        public int? ActivityId { get; set; }
-        public Activity Activity { get; set; }
         [ForeignKey("ItemType"), Required]
         public int? ItemTypeId { get; set; }
         [Required]
         public bool HasBeenPurchased { get; set; }
-#nullable enable
+        #nullable enable
         public string? Details { get; set; }
         public string? PhotoURL { get; set; }
         [ForeignKey("Store")]
         public int? StoreId { get; set; }
-        
+        public DateTime CreatedAt { get; set; }
+        public DateTime EditiedAt { get; set; }
+        [ForeignKey("House")]
+        public int HouseId { get; set; }
+
+
     }
 }

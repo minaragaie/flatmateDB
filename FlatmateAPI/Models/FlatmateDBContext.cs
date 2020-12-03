@@ -18,8 +18,7 @@ namespace FlatmateAPI.Models
             modelBuilder.Entity<UserHouse>().HasKey(o => new { o.UserId, o.HouseId });
             //modelBuilder.Entity<UserHouse>().HasOne(o => o.House );
         }
-        public DbSet<Activity> Activities { get; set; }
-        public DbSet<ActivityType> ActivityTypes { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
         public DbSet<House> Houses { get; set; }
         public DbSet<Item> Items { get; set; }

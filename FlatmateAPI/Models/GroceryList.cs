@@ -13,10 +13,15 @@ namespace FlatmateAPI.Models
         public int Id { get; set; }
         [Required, MaxLength(40)]
         public int Label { get; set; }
-        [ForeignKey("Activity")]
-        public int ActivityId { get; set; }
-        //public Activity Activity { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? EditedAt { get; set; }
+        [ForeignKey("House")]
+        public int HouseId { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public int Privilige { get; set; }
         public List<ListItem> Items { get; set; }
+
 
     }
 }

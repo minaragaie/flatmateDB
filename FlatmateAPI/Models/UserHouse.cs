@@ -17,8 +17,6 @@ namespace FlatmateAPI.Models
         public int? HouseId { get; set; }
         public House House { get; set; }
         public User User { get; set; }
-        [ForeignKey("Activity")]
-        public int? ActivityId { get; set; }
-        //public Activity Activity { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

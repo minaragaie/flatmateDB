@@ -24,7 +24,7 @@ namespace FlatmateAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.Include(u => u.Houses).ToListAsync();
+            return await _context.Users.Include(i=>i.Houses).ToListAsync();
         }
 
         // GET: api/User/5

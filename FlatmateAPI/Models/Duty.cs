@@ -15,14 +15,19 @@ namespace FlatmateAPI.Models
         public int DutyTypeId { get; set; }
         [ForeignKey("User")]
         public int AssignedTo { get; set; }
-        [ForeignKey("Activity")]
-        public int ActivityId { get; set; }
         public DateTime DueDate { get; set; }
-        public Activity Activity { get; set; }
+        public bool MarkAsDone { get; set; }
+        public DateTime? Edited { get; set; }
+        [ForeignKey("House")]
+        public int HouseId { get; set; }
+        public int Privilege { get; set; }
+        public DateTime CreatedAt { get; set; }
         public bool OnProcess { get; set; }
         public bool Repeat { get; set; }
-#nullable enable
+        #nullable enable
         [MaxLength(200)]
         public string? Notes { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
     }
 }

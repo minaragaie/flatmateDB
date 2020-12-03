@@ -23,6 +23,5 @@ namespace FlatmateAPI.Models
         public DateTime LastLoginAt { get; set; }
         public string PhotoURL { get; set; }
         public List<UserHouse> Houses { get; set; }
-        //public List<Activity> Activities { get; set; }
     }
 }
