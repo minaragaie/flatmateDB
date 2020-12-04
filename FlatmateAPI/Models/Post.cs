@@ -19,7 +19,7 @@ namespace FlatmateAPI.Models
         public DateTime CreatedAt { get; set; }
         [ForeignKey("House")]
         public int HouseId { get; set; }
-        [ForeignKey("User")]
+        //[ForeignKey("User")]
         public int UserId { get; set; }
         public List<Comment>? Comments { get; set; }
     }

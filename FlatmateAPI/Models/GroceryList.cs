@@ -17,7 +17,6 @@ namespace FlatmateAPI.Models
         public DateTime? EditedAt { get; set; }
         [ForeignKey("House")]
         public int HouseId { get; set; }
-        [ForeignKey("User")]
         public int UserId { get; set; }
         public int Privilige { get; set; }
         public bool IsStarred { get; set; }
