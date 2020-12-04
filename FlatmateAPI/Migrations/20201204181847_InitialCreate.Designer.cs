@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlatmateAPI.Migrations
 {
     [DbContext(typeof(FlatmateDBContext))]
-    [Migration("20201203231955_InitialCreate")]
+    [Migration("20201204181847_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

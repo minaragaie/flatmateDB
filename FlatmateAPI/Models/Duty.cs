@@ -13,7 +13,7 @@ namespace FlatmateAPI.Models
         public string Label { get; set; }
         [ForeignKey("DutyType")]
         public int DutyTypeId { get; set; }
-        //[ForeignKey("User")]
+        [ForeignKey("User")]
         public int AssignedTo { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -32,7 +32,6 @@ namespace FlatmateAPI.Models
 #nullable enable
         [MaxLength(200)]
         public string? Notes { get; set; }
-        //[ForeignKey("User")]
         public int UserId { get; set; }
     }
 }
