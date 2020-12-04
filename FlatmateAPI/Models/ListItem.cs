@@ -23,7 +23,6 @@ namespace FlatmateAPI.Models
         public bool HasBeenPurchased { get; set; }
         #nullable enable
         public string? Details { get; set; }
-        public string? PhotoURL { get; set; }
         [ForeignKey("Store")]
         public int? StoreId { get; set; }
         public DateTime CreatedAt { get; set; }

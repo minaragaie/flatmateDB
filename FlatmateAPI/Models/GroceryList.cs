@@ -20,8 +20,7 @@ namespace FlatmateAPI.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public int Privilige { get; set; }
+        public bool IsStarred { get; set; }
         public List<ListItem> Items { get; set; }
-
-
     }
 }

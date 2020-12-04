@@ -13,7 +13,7 @@ namespace FlatmateAPI.Models
         public int Id { get; set; }
         [Required, MaxLength(200)]
         public string Label { get; set; }
-#       nullable enable
+        #nullable enable
         public string? HasAttatchment { get; set; }
         public DateTime? EditedAt { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -22,8 +22,5 @@ namespace FlatmateAPI.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public List<Comment>? Comments { get; set; }
-
-
-
     }
 }

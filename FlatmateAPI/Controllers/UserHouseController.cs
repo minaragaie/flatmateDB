@@ -24,14 +24,14 @@ namespace FlatmateAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserHouse>>> GetUsersHouses()
         {
-            return await _context.UsersHouses.Include(i=>i.House).ToListAsync();
+            return await _context.UsersHouses.ToListAsync();
         }
 
         // GET: api/UserHouse/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserHouse>> GetUserHouse(int? id)
         {
-            var userHouse = await _context.UsersHouses.Include(u => u.House).FirstOrDefaultAsync(i => i.Id == id);
+            var userHouse = await _context.UsersHouses.FindAsync(id);
 
             if (userHouse == null)
             {

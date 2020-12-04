@@ -66,17 +66,23 @@ namespace FlatmateAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("DutyTypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Edited")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("HouseId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsImportant")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsStarred")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -93,16 +99,27 @@ namespace FlatmateAPI.Migrations
                     b.Property<bool>("OnProcess")
                         .HasColumnType("bit");
 
+                    b.Property<string>("PrimaryColor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Privilege")
                         .HasColumnType("int");
 
                     b.Property<bool>("Repeat")
                         .HasColumnType("bit");
 
+                    b.Property<string>("SecondaryColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HouseId");
 
                     b.ToTable("Duty");
                 });
@@ -139,6 +156,9 @@ namespace FlatmateAPI.Migrations
                     b.Property<int>("HouseId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsStarred")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Label")
                         .HasMaxLength(40)
                         .HasColumnType("int");
@@ -150,6 +170,8 @@ namespace FlatmateAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HouseId");
 
                     b.ToTable("GroceryList");
                 });
@@ -246,9 +268,6 @@ namespace FlatmateAPI.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("PhotoURL")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Quanitiy")
                         .HasColumnType("int");
 
@@ -290,6 +309,8 @@ namespace FlatmateAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HouseId");
 
                     b.ToTable("Post");
                 });
@@ -418,6 +439,24 @@ namespace FlatmateAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FlatmateAPI.Models.Duty", b =>
+                {
+                    b.HasOne("FlatmateAPI.Models.House", null)
+                        .WithMany("Duties")
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FlatmateAPI.Models.GroceryList", b =>
+                {
+                    b.HasOne("FlatmateAPI.Models.House", null)
+                        .WithMany("GroceryLists")
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FlatmateAPI.Models.ListItem", b =>
                 {
                     b.HasOne("FlatmateAPI.Models.GroceryList", null)
@@ -431,6 +470,15 @@ namespace FlatmateAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("FlatmateAPI.Models.Post", b =>
+                {
+                    b.HasOne("FlatmateAPI.Models.House", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FlatmateAPI.Models.StoreItem", b =>
@@ -474,6 +522,15 @@ namespace FlatmateAPI.Migrations
             modelBuilder.Entity("FlatmateAPI.Models.GroceryList", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("FlatmateAPI.Models.House", b =>
+                {
+                    b.Navigation("Duties");
+
+                    b.Navigation("GroceryLists");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("FlatmateAPI.Models.Item", b =>

@@ -8,31 +8,6 @@ namespace FlatmateAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Duty",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    DutyTypeId = table.Column<int>(type: "int", nullable: false),
-                    AssignedTo = table.Column<int>(type: "int", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MarkAsDone = table.Column<bool>(type: "bit", nullable: false),
-                    Edited = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    HouseId = table.Column<int>(type: "int", nullable: false),
-                    Privilege = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OnProcess = table.Column<bool>(type: "bit", nullable: false),
-                    Repeat = table.Column<bool>(type: "bit", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Duty", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DutyType",
                 columns: table => new
                 {
@@ -43,24 +18,6 @@ namespace FlatmateAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DutyType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GroceryList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<int>(type: "int", maxLength: 40, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    HouseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Privilige = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroceryList", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,24 +62,6 @@ namespace FlatmateAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Post",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    HasAttatchment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HouseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Post", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Store",
                 columns: table => new
                 {
@@ -158,61 +97,86 @@ namespace FlatmateAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ListItem",
+                name: "Duty",
                 columns: table => new
                 {
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    ListId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Quanitiy = table.Column<int>(type: "int", nullable: false),
-                    ItemTypeId = table.Column<int>(type: "int", nullable: false),
-                    HasBeenPurchased = table.Column<bool>(type: "bit", nullable: false),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StoreId = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EditiedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DutyTypeId = table.Column<int>(type: "int", nullable: false),
+                    AssignedTo = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MarkAsDone = table.Column<bool>(type: "bit", nullable: false),
+                    Edited = table.Column<DateTime>(type: "datetime2", nullable: true),
                     HouseId = table.Column<int>(type: "int", nullable: false),
-                    GroceryListId = table.Column<int>(type: "int", nullable: true)
+                    Privilege = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OnProcess = table.Column<bool>(type: "bit", nullable: false),
+                    Repeat = table.Column<bool>(type: "bit", nullable: false),
+                    IsStarred = table.Column<bool>(type: "bit", nullable: false),
+                    IsImportant = table.Column<bool>(type: "bit", nullable: false),
+                    PrimaryColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecondaryColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ListItem", x => new { x.ItemId, x.ListId });
+                    table.PrimaryKey("PK_Duty", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ListItem_GroceryList_GroceryListId",
-                        column: x => x.GroceryListId,
-                        principalTable: "GroceryList",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ListItem_Item_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Item",
+                        name: "FK_Duty_House_HouseId",
+                        column: x => x.HouseId,
+                        principalTable: "House",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "GroceryList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Label = table.Column<int>(type: "int", maxLength: 40, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    HouseId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Privilige = table.Column<int>(type: "int", nullable: false),
+                    IsStarred = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroceryList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GroceryList_House_HouseId",
+                        column: x => x.HouseId,
+                        principalTable: "House",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Post",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Label = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    Edited = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    HasAttatchment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HouseId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Post", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Post_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Post",
+                        name: "FK_Post_House_HouseId",
+                        column: x => x.HouseId,
+                        principalTable: "House",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -272,15 +236,89 @@ namespace FlatmateAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ListItem",
+                columns: table => new
+                {
+                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    ListId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quanitiy = table.Column<int>(type: "int", nullable: false),
+                    ItemTypeId = table.Column<int>(type: "int", nullable: false),
+                    HasBeenPurchased = table.Column<bool>(type: "bit", nullable: false),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoreId = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditiedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HouseId = table.Column<int>(type: "int", nullable: false),
+                    GroceryListId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ListItem", x => new { x.ItemId, x.ListId });
+                    table.ForeignKey(
+                        name: "FK_ListItem_GroceryList_GroceryListId",
+                        column: x => x.GroceryListId,
+                        principalTable: "GroceryList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ListItem_Item_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Item",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Label = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    Edited = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HouseId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comment_Post_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Post",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comment_PostId",
                 table: "Comment",
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Duty_HouseId",
+                table: "Duty",
+                column: "HouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroceryList_HouseId",
+                table: "GroceryList",
+                column: "HouseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ListItem_GroceryListId",
                 table: "ListItem",
                 column: "GroceryListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Post_HouseId",
+                table: "Post",
+                column: "HouseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StoreItem_StoreId",
@@ -329,10 +367,10 @@ namespace FlatmateAPI.Migrations
                 name: "Store");
 
             migrationBuilder.DropTable(
-                name: "House");
+                name: "User");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "House");
         }
     }
 }
