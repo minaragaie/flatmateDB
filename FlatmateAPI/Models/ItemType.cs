@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -34,5 +35,6 @@ namespace FlatmateAPI.Models
         public int Id { get; set; }
         [Required, MaxLength(40)]
         public ItemTypeLabel Label { get; set; }
+        public List<Item> Items { get; set; }
     }
 }

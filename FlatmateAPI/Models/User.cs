@@ -8,7 +8,7 @@ namespace FlatmateAPI.Models
     [Table("User")]
     public class User
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string ApiKey { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -22,6 +22,7 @@ namespace FlatmateAPI.Models
         public bool IsAnonymous { get; set; }
         public DateTime LastLoginAt { get; set; }
         public string PhotoURL { get; set; }
-        public List<UserHouse> Houses { get; set; }
+        public List<House> Houses { get; set; }
+        public List<House> OwnedHouses { get; set; }
     }
 }

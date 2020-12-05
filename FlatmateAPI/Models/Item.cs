@@ -12,8 +12,20 @@ namespace FlatmateAPI.Models
         public int Id { get; set; }
         [MaxLength(40), Required]
         public string Label { get; set; }
-        public List<ListItem> Lists { get; set; }
-        public List<StoreItem> Stores { get; set; }
+        public ItemType Type { get; set; }
+        [ForeignKey("Type")]
+        public int ItemTypeId { get; set; }
+        public int Quanitiy { get; set; }
+        public bool HasBeenPurchased { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime EditiedAt { get; set; }
+        public House House { get; set; }
+        [ForeignKey("House")]
+        public int HouseId { get; set; }
+#nullable enable
+        public string? Details { get; set; }
+        public List<Store>? Stores { get; set; }
+
 
 
 

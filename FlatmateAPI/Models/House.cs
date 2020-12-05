@@ -10,8 +10,9 @@ namespace FlatmateAPI.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [ForeignKey("User")]
-        public int OwnerId { get; set; }
+        [ForeignKey("Owner")]
+        public int? OwnerId { get; set; }
+        public User Owner { get; set; }
         [MaxLength(200)]
         public string Location { get; set; }
         [MaxLength(40), Required]
@@ -19,5 +20,8 @@ namespace FlatmateAPI.Models
         public List<Post> Posts { get; set; }
         public List<Duty> Duties { get; set; }
         public List<GroceryList> GroceryLists { get; set; }
+        public List<User> Users { get; set; }
+
+
     }
 }

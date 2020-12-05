@@ -11,14 +11,18 @@ namespace FlatmateAPI.Models
         public int Id { get; set; }
         [Required, MaxLength(40)]
         public string Label { get; set; }
-        [ForeignKey("DutyType")]
+        
+        public DutyType Type { get; set; }
+        [ForeignKey("Type")]
         public int DutyTypeId { get; set; }
-        [ForeignKey("User")]
-        public int AssignedTo { get; set; }
+        public User AssignedTo { get; set; }
+        [ForeignKey("AssignedTo")]
+        public int AssignedToId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool MarkAsDone { get; set; }
         public DateTime? Edited { get; set; }
+        public House House { get; set; }
         [ForeignKey("House")]
         public int HouseId { get; set; }
         public int Privilege { get; set; }
@@ -29,9 +33,13 @@ namespace FlatmateAPI.Models
         public bool IsImportant { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
-#nullable enable
+        public User DutyCreator { get; set; }
+        [ForeignKey("DutyCreator")]
+        public int? UserId { get; set; }
+        #nullable enable
         [MaxLength(200)]
         public string? Notes { get; set; }
-        public int UserId { get; set; }
+        
+       
     }
 }

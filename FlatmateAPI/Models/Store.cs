@@ -13,7 +13,9 @@ namespace FlatmateAPI.Models
         public string Label { get; set; }
         [Required, MaxLength(200)]
         public string Location { get; set; }
-        public List<StoreItem> Items { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
+        public decimal? Price { get; set; }
+        public List<Item> Items { get; set; }
 
     }
 }

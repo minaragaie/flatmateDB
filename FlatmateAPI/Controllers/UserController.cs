@@ -24,14 +24,18 @@ namespace FlatmateAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.Include(u => u.Houses).AsNoTracking().ToListAsync();
+            return await _context.Users
+                .Include(u => u.Houses).ThenInclude(u => u.Posts).ThenInclude(u => u.Comments)
+                .Include(u => u.Houses).ThenInclude(u => u.GroceryLists).ThenInclude(u => u.Items)
+                .Include(u => u.Houses).ThenInclude(u => u.Duties)
+                .ToListAsync();
         }
 
         // GET: api/User/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.Include(u => u.Houses).FirstOrDefaultAsync(i => i.Id == id);
+            var user = await _context.Users.FindAsync(id);
 
             if (user == null)
             {

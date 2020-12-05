@@ -12,14 +12,17 @@ namespace FlatmateAPI.Models
 
         public int Id { get; set; }
         [Required, MaxLength(40)]
-        public int Label { get; set; }
+        public string Label { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? EditedAt { get; set; }
+        public House House { get; set; }
         [ForeignKey("House")]
         public int HouseId { get; set; }
+        public User ListCreator { get; set; }
+        [ForeignKey("ListCreator")]
         public int UserId { get; set; }
         public int Privilige { get; set; }
         public bool IsStarred { get; set; }
-        public List<ListItem> Items { get; set; }
+        public List<Item> Items { get; set; }
     }
 }
