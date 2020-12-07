@@ -28,10 +28,11 @@ namespace FlatmateAPI
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("FlatmateDB");
+            services.AddCors();
             services.AddDbContextPool<FlatmateDBContext>(options=> options.UseSqlServer(connection));
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+            
             //services.AddControllers();
         }
 
@@ -44,7 +45,8 @@ namespace FlatmateAPI
             }
 
             app.UseHttpsRedirection();
-
+            string[] origins = new string[] { "http://localhost:4200" };
+            app.UseCors(b => b.AllowAnyMethod().AllowAnyHeader().WithOrigins(origins));
             app.UseRouting();
 
             app.UseAuthorization();

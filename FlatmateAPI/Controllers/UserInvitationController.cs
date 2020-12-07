@@ -11,47 +11,47 @@ namespace FlatmateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemTypeController : ControllerBase
+    public class UserInvitationController : ControllerBase
     {
         private readonly FlatmateDBContext _context;
 
-        public ItemTypeController(FlatmateDBContext context)
+        public UserInvitationController(FlatmateDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/ItemType
+        // GET: api/UserInvitation
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItemType>>> GetItemTypes()
+        public async Task<ActionResult<IEnumerable<UserInvitation>>> GetUserInvitation()
         {
-            return await _context.ItemTypes.ToListAsync();
+            return await _context.UserInvitation.ToListAsync();
         }
 
-        // GET: api/ItemType/5
+        // GET: api/UserInvitation/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ItemType>> GetItemType(int id)
+        public async Task<ActionResult<UserInvitation>> GetUserInvitation(int id)
         {
-            var itemType = await _context.ItemTypes.FindAsync(id);
+            var userInvitation = await _context.UserInvitation.FindAsync(id);
 
-            if (itemType == null)
+            if (userInvitation == null)
             {
                 return NotFound();
             }
 
-            return itemType;
+            return userInvitation;
         }
 
-        // PUT: api/ItemType/5
+        // PUT: api/UserInvitation/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItemType(int id, ItemType itemType)
+        public async Task<IActionResult> PutUserInvitation(int id, UserInvitation userInvitation)
         {
-            if (id != itemType.Id)
+            if (id != userInvitation.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(itemType).State = EntityState.Modified;
+            _context.Entry(userInvitation).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace FlatmateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemTypeExists(id))
+                if (!UserInvitationExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace FlatmateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/ItemType
+        // POST: api/UserInvitation
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ItemType>> PostItemType(ItemType itemType)
+        public async Task<ActionResult<UserInvitation>> PostUserInvitation(UserInvitation userInvitation)
         {
-            _context.ItemTypes.Add(itemType);
+            _context.UserInvitation.Add(userInvitation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetItemType", new { id = itemType.Id }, itemType);
+            return CreatedAtAction("GetUserInvitation", new { id = userInvitation.Id }, userInvitation);
         }
 
-        // DELETE: api/ItemType/5
+        // DELETE: api/UserInvitation/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItemType(int id)
+        public async Task<IActionResult> DeleteUserInvitation(int id)
         {
-            var itemType = await _context.ItemTypes.FindAsync(id);
-            if (itemType == null)
+            var userInvitation = await _context.UserInvitation.FindAsync(id);
+            if (userInvitation == null)
             {
                 return NotFound();
             }
 
-            _context.ItemTypes.Remove(itemType);
+            _context.UserInvitation.Remove(userInvitation);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ItemTypeExists(int id)
+        private bool UserInvitationExists(int id)
         {
-            return _context.ItemTypes.Any(e => e.Id == id);
+            return _context.UserInvitation.Any(e => e.Id == id);
         }
     }
 }

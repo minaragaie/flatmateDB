@@ -11,7 +11,7 @@ namespace FlatmateAPI.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [ForeignKey("Owner")]
-        public int? OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public User Owner { get; set; }
         [MaxLength(200)]
         public string Location { get; set; }

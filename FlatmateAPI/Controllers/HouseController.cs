@@ -24,7 +24,12 @@ namespace FlatmateAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<House>>> GetHouses()
         {
-            return await _context.Houses.ToListAsync();
+            return await _context.Houses
+                .Include(u => u.Users)
+                .Include(u => u.Posts).ThenInclude(u => u.Comments)
+                .Include(u => u.GroceryLists).ThenInclude(u => u.Items)
+                .Include(u => u.Duties)
+                .ToListAsync();
         }
 
         // GET: api/House/5
@@ -77,10 +82,29 @@ namespace FlatmateAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<House>> PostHouse(House house)
         {
-            _context.Houses.Add(house);
+            User user = await _context.Users.FindAsync(house.OwnerId);
+            var users = new List<User>
+            {
+                user
+            };
+
+            House newHouse = new House
+            {
+                Name = house.Name,
+                OwnerId = house.OwnerId,
+                Location = house.Location,
+                Owner = user,
+                Users = users
+            };
+            //_context.Users.Attach(user);
+            //_context.Users.Attach(newHouse);
+
+
+
+            _context.Houses.Add(newHouse);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetHouse", new { id = house.Id }, house);
+            return CreatedAtAction("GetHouse", new { id = newHouse.Id }, newHouse);
         }
 
         // DELETE: api/House/5

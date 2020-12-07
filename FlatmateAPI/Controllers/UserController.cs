@@ -22,13 +22,24 @@ namespace FlatmateAPI.Controllers
 
         // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers( string email)
         {
-            return await _context.Users
+            if (email is null)
+            {//if email is null get all users 
+                return await _context.Users
                 .Include(u => u.Houses).ThenInclude(u => u.Posts).ThenInclude(u => u.Comments)
                 .Include(u => u.Houses).ThenInclude(u => u.GroceryLists).ThenInclude(u => u.Items)
                 .Include(u => u.Houses).ThenInclude(u => u.Duties)
                 .ToListAsync();
+            }
+            else
+            {//else get user by his email
+                return await _context.Users.Where(i => i.Email.Equals(email))
+                .Include(u => u.Houses).ThenInclude(u => u.Posts).ThenInclude(u => u.Comments)
+                .Include(u => u.Houses).ThenInclude(u => u.GroceryLists).ThenInclude(u => u.Items)
+                .Include(u => u.Houses).ThenInclude(u => u.Duties)
+                .ToListAsync();
+            }
         }
 
         // GET: api/User/5
@@ -89,9 +100,9 @@ namespace FlatmateAPI.Controllers
 
         // DELETE: api/User/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(string uid)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(uid);
             if (user == null)
             {
                 return NotFound();

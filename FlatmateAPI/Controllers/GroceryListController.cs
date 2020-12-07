@@ -24,14 +24,14 @@ namespace FlatmateAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GroceryList>>> GetLists()
         {
-            return await _context.Lists.ToListAsync();
+            return await _context.GroceryLists.ToListAsync();
         }
 
         // GET: api/GroceryList/5
         [HttpGet("{id}")]
         public async Task<ActionResult<GroceryList>> GetGroceryList(int id)
         {
-            var groceryList = await _context.Lists.FindAsync(id);
+            var groceryList = await _context.GroceryLists.FindAsync(id);
 
             if (groceryList == null)
             {
@@ -77,7 +77,34 @@ namespace FlatmateAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<GroceryList>> PostGroceryList(GroceryList groceryList)
         {
-            _context.Lists.Add(groceryList);
+
+
+            User user = await _context.Users.FindAsync(groceryList.UserId);
+            House house = await _context.Houses.FindAsync(groceryList.HouseId);
+
+
+            groceryList = new GroceryList
+            {
+                Label = groceryList.Label,
+                CreatedAt = groceryList.CreatedAt,
+                EditedAt = groceryList.EditedAt,
+                HouseId = groceryList.HouseId,
+                House = house,
+                ListCreator = user,
+                UserId = user.UID,
+                Privilige = groceryList.Privilige,
+                IsStarred = groceryList.IsStarred,
+                Items = new List<Item>()
+            };
+
+
+
+
+
+
+
+
+            _context.GroceryLists.Add(groceryList);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetGroceryList", new { id = groceryList.Id }, groceryList);
@@ -87,13 +114,13 @@ namespace FlatmateAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroceryList(int id)
         {
-            var groceryList = await _context.Lists.FindAsync(id);
+            var groceryList = await _context.GroceryLists.FindAsync(id);
             if (groceryList == null)
             {
                 return NotFound();
             }
 
-            _context.Lists.Remove(groceryList);
+            _context.GroceryLists.Remove(groceryList);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +128,7 @@ namespace FlatmateAPI.Controllers
 
         private bool GroceryListExists(int id)
         {
-            return _context.Lists.Any(e => e.Id == id);
+            return _context.GroceryLists.Any(e => e.Id == id);
         }
     }
 }

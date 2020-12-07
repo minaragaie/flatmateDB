@@ -18,13 +18,13 @@ namespace FlatmateAPI.Models
 
         #region Inviter
         [ForeignKey("Inviter")]
-        public int? InviterId { get; set; }
+        public string InviterId { get; set; }
         public User Inviter { get; set; }
         #endregion
 
         [ForeignKey("Invitee")]
-        public int? InviteeId { get; set; }
+        public string InviteeId { get; set; }
         public User Invitee { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
     }
 }

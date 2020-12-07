@@ -77,6 +77,23 @@ namespace FlatmateAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
+            User user = await _context.Users.FindAsync(post.UserId);
+            House house = await _context.Houses.FindAsync(post.HouseId);
+
+
+            post = new Post
+            {
+                Label = post.Label,
+                EditedAt = post.EditedAt,
+                CreatedAt = post.CreatedAt,
+                House = house,
+                HouseId = post.HouseId,
+                User = user,
+                UserId = post.UserId,
+                Comments = new List<Comment>(),
+                HasAttatchment = post.HasAttatchment
+            };
+
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 

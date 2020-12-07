@@ -77,6 +77,13 @@ namespace FlatmateAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Store>> PostStore(Store store)
         {
+            store = new Store
+            {
+                Label = store.Label,
+                Location = store.Location,
+                Items = new List<Item>()
+            };
+
             _context.Stores.Add(store);
             await _context.SaveChangesAsync();
 

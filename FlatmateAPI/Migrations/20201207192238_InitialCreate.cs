@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlatmateAPI.Migrations
 {
@@ -13,7 +12,7 @@ namespace FlatmateAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<int>(type: "int", maxLength: 40, nullable: false)
+                    Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,7 +25,7 @@ namespace FlatmateAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<int>(type: "int", maxLength: 40, nullable: false)
+                    Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,8 +39,7 @@ namespace FlatmateAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,4)", nullable: true)
+                    Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,21 +50,22 @@ namespace FlatmateAPI.Migrations
                 name: "User",
                 columns: table => new
                 {
+                    UID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApiKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DisplayName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsVerified = table.Column<bool>(type: "bit", nullable: false),
                     IsAnonymous = table.Column<bool>(type: "bit", nullable: false),
-                    LastLoginAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastLoginAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.UID);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,7 +74,7 @@ namespace FlatmateAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<int>(type: "int", nullable: true),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
                 },
@@ -86,7 +85,7 @@ namespace FlatmateAPI.Migrations
                         name: "FK_House_User_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -98,21 +97,21 @@ namespace FlatmateAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     DutyTypeId = table.Column<int>(type: "int", nullable: false),
-                    AssignedToId = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AssignedToId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    StartDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EndDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MarkAsDone = table.Column<bool>(type: "bit", nullable: false),
-                    Edited = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Edited = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HouseId = table.Column<int>(type: "int", nullable: false),
                     Privilege = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OnProcess = table.Column<bool>(type: "bit", nullable: false),
                     Repeat = table.Column<bool>(type: "bit", nullable: false),
                     IsStarred = table.Column<bool>(type: "bit", nullable: false),
                     IsImportant = table.Column<bool>(type: "bit", nullable: false),
                     PrimaryColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondaryColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
                 },
                 constraints: table =>
@@ -134,13 +133,13 @@ namespace FlatmateAPI.Migrations
                         name: "FK_Duty_User_AssignedToId",
                         column: x => x.AssignedToId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Duty_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -151,10 +150,10 @@ namespace FlatmateAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Label = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EditedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HouseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Privilige = table.Column<int>(type: "int", nullable: false),
                     IsStarred = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -171,8 +170,8 @@ namespace FlatmateAPI.Migrations
                         name: "FK_GroceryList_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,11 +179,11 @@ namespace FlatmateAPI.Migrations
                 columns: table => new
                 {
                     HousesId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
+                    UsersUID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HouseUser", x => new { x.HousesId, x.UsersId });
+                    table.PrimaryKey("PK_HouseUser", x => new { x.HousesId, x.UsersUID });
                     table.ForeignKey(
                         name: "FK_HouseUser_House_HousesId",
                         column: x => x.HousesId,
@@ -192,10 +191,10 @@ namespace FlatmateAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_HouseUser_User_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_HouseUser_User_UsersUID",
+                        column: x => x.UsersUID,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -206,10 +205,10 @@ namespace FlatmateAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Label = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HouseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     HasAttatchment = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -225,8 +224,8 @@ namespace FlatmateAPI.Migrations
                         name: "FK_Post_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,9 +236,9 @@ namespace FlatmateAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Accepted = table.Column<bool>(type: "bit", nullable: false),
                     HouseId = table.Column<int>(type: "int", nullable: true),
-                    InviterId = table.Column<int>(type: "int", nullable: true),
-                    InviteeId = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    InviterId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    InviteeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -254,13 +253,13 @@ namespace FlatmateAPI.Migrations
                         name: "FK_UserInvitation_User_InviteeId",
                         column: x => x.InviteeId,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserInvitation_User_InviterId",
                         column: x => x.InviterId,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -274,11 +273,13 @@ namespace FlatmateAPI.Migrations
                     ItemTypeId = table.Column<int>(type: "int", nullable: false),
                     Quanitiy = table.Column<int>(type: "int", nullable: false),
                     HasBeenPurchased = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EditiedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HouseId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EditiedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    HouseId = table.Column<int>(type: "int", nullable: true),
+                    GroceryListId = table.Column<int>(type: "int", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GroceryListId = table.Column<int>(type: "int", nullable: true)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -288,19 +289,25 @@ namespace FlatmateAPI.Migrations
                         column: x => x.GroceryListId,
                         principalTable: "GroceryList",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Item_House_HouseId",
                         column: x => x.HouseId,
                         principalTable: "House",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Item_ItemType_ItemTypeId",
                         column: x => x.ItemTypeId,
                         principalTable: "ItemType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Item_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -311,10 +318,10 @@ namespace FlatmateAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Label = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     PostId = table.Column<int>(type: "int", nullable: true),
-                    Edited = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Edited = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HouseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -335,8 +342,8 @@ namespace FlatmateAPI.Migrations
                         name: "FK_Comment_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -414,9 +421,9 @@ namespace FlatmateAPI.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HouseUser_UsersId",
+                name: "IX_HouseUser_UsersUID",
                 table: "HouseUser",
-                column: "UsersId");
+                column: "UsersUID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Item_GroceryListId",
@@ -432,6 +439,11 @@ namespace FlatmateAPI.Migrations
                 name: "IX_Item_ItemTypeId",
                 table: "Item",
                 column: "ItemTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Item_UserId",
+                table: "Item",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemStore_StoresId",

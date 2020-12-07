@@ -14,14 +14,14 @@ namespace FlatmateAPI.Models
         public Post Post { get; set; }
         [ForeignKey("Post")]
         public int? PostId { get; set; }
-        public DateTime? Edited { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string Edited { get; set; }
+        public string CreatedAt { get; set; }
         public House House { get; set; }
         [ForeignKey("House")]
         public int HouseId { get; set; }
         public User User { get; set; }
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
 
     }

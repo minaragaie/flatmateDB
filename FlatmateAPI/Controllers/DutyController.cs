@@ -77,6 +77,41 @@ namespace FlatmateAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Duty>> PostDuty(Duty duty)
         {
+            User user = await _context.Users.FindAsync(duty.UserId);
+            User assignedTo = await _context.Users.FindAsync(duty.AssignedToId);
+            House house = await _context.Houses.FindAsync(duty.HouseId);
+            DutyType dutyType = await _context.DutyTypes.FindAsync(duty.DutyTypeId);
+
+
+            duty = new Duty
+            {
+                Label = duty.Label,
+                AssignedTo = assignedTo,
+                AssignedToId = duty.AssignedToId,
+                DutyTypeId = duty.DutyTypeId, 
+                Type = dutyType,
+                StartDate = duty.StartDate,
+                EndDate = duty.EndDate,
+                MarkAsDone = duty.MarkAsDone,
+                Edited = duty.Edited,
+                House = house,
+                HouseId = duty.HouseId,
+                Privilege = duty.Privilege,
+                CreatedAt = duty.CreatedAt,
+                OnProcess = duty.OnProcess,
+                Repeat = duty.Repeat,
+                IsStarred = duty.IsStarred,
+                IsImportant = duty.IsImportant,
+                PrimaryColor = duty.PrimaryColor,
+                SecondaryColor = duty.SecondaryColor,
+                DutyCreator = user,
+                UserId = duty.UserId,
+                Notes = duty.Notes
+            };
+
+
+
+
             _context.Duties.Add(duty);
             await _context.SaveChangesAsync();
 
